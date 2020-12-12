@@ -8,11 +8,48 @@
         android:layout_height="match_parent"
         tools:context="com.example.android.politicalpreparedness.MainActivity">
 
-        <!-- TODO: Add image for home screen logo. -->
+        <!-- Done: Add image for home screen logo. -->
 
-        <!-- TODO: Add Button to navigate to upcoming elections. -->
+        <!-- Done: Add Button to navigate to upcoming elections. -->
 
-        <!-- TODO: Add Button to navigate to representatives. -->
+        <!-- Done: Add Button to navigate to representatives. -->
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginEnd="@dimen/spacing_large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ballot_logo" />
+
+        <Button
+            android:id="@+id/button_upComing_launch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spaing_medium"
+            android:layout_marginEnd="@dimen/spaing_medium"
+            android:layout_marginBottom="@dimen/spaing_medium"
+            android:text="@string/upcoming_elections"
+            app:layout_constraintBottom_toTopOf="@+id/button_representative_launch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/button_representative_launch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spaing_medium"
+            android:layout_marginEnd="@dimen/spaing_medium"
+            android:layout_marginBottom="@dimen/spaing_medium"
+            android:text="@string/find_my_representative"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
