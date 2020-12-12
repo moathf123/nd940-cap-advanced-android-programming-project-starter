@@ -3,7 +3,9 @@
     <dimen name="default_padding">8dp</dimen>
     <dimen name="spacing_medium">16dp</dimen>
     <dimen name="spacing_large">32dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="medium_textsize">16sp</dimen>
 
-    <!-- TODO: Add necessary dimension values -->s
+    <!-- TODO: Add necessary dimension values -->
 
 </resources>

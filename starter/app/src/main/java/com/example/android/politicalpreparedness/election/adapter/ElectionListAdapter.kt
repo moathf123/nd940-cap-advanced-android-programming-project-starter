@@ -43,11 +43,11 @@ class ElectionListener(val clickListener: (election: Election) -> Unit) {
 
 object ElectionDiffCallback : DiffUtil.ItemCallback<Election>() {
     override fun areItemsTheSame(oldItem: Election, newItem: Election): Boolean {
-        return oldItem == newItem
+        return oldItem === newItem
     }
 
     override fun areContentsTheSame(oldItem: Election, newItem: Election): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem == newItem
     }
 
 }

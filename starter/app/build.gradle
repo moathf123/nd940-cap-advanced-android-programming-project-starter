@@ -76,4 +76,8 @@ dependencies {
 
     // Location
     implementation "com.google.android.gms:play-services-location:$version_play_services_location"
+
+    // Timber
+    implementation 'com.github.ajalt:timberkt:1.5.1'
+
 }

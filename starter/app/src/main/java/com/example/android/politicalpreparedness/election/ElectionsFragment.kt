@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.android.politicalpreparedness.R
@@ -31,7 +31,7 @@ class ElectionsFragment: Fragment() {
 
         val dataSource = ElectionDatabase.getInstance(application).electionDao
 
-        val viewModelFactory = ElectionsViewModelFactory(dataSource, application)
+        val viewModelFactory = ElectionsViewModelFactory(dataSource)
 
         viewModel =
                 ViewModelProvider(
@@ -42,12 +42,25 @@ class ElectionsFragment: Fragment() {
         binding.lifecycleOwner = this
 
 
-        val adapter = ElectionListAdapter(ElectionListener {
-            Toast.makeText(context, "${it}", Toast.LENGTH_LONG).show()
+        val savedElectionsAdapter = ElectionListAdapter(ElectionListener {
             findNavController()
                     .navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it.id, it.division))
         })
-        binding.recyclerViewSavedElections.adapter = adapter
+
+        binding.recyclerViewSavedElections.adapter = savedElectionsAdapter
+
+        val upcomingElectionsAdapter = ElectionListAdapter(ElectionListener {
+            findNavController()
+                    .navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it.id, it.division))
+        })
+
+
+        viewModel.upcomingElections.observe(viewLifecycleOwner, Observer {
+            upcomingElectionsAdapter.submitList(it)
+        })
+
+        binding.recyclerViewUpcomingElections.adapter = upcomingElectionsAdapter
+
         return binding.root
     }
 
@@ -59,7 +72,7 @@ class ElectionsFragment: Fragment() {
 
 //Done: Add binding values
 
-//Done: Link elections to voter info
+//TODO: Link elections to voter info
 
 //Done: Initiate recycler adapters
 
