@@ -15,7 +15,7 @@ class Repo(private val database: ElectionDao) {
     val elections: LiveData<List<Election>> = database.getAllElections()
     val voterInfo = MutableLiveData<VoterInfoResponse>()
     val representatives = MutableLiveData<RepresentativeResponse>()
-
+    val savedElections: LiveData<List<Election>> = database.getSavedElections()
 
     fun getElection(id: Int) = database.getElectionById(id)
 
@@ -36,7 +36,6 @@ class Repo(private val database: ElectionDao) {
         }
     }
 
-
     suspend fun refreshElections() {
         try {
             withContext(Dispatchers.IO) {
@@ -46,8 +45,5 @@ class Repo(private val database: ElectionDao) {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
-
-    //val savedElections: LiveData<List<Election>> = database.getSavedElections()
 }

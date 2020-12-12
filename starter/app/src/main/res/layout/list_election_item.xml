@@ -7,16 +7,12 @@
         <variable
             name="election"
             type="com.example.android.politicalpreparedness.network.models.Election" />
-
-        <variable
-            name="clickListener"
-            type="com.example.android.politicalpreparedness.election.adapter.ElectionListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{()-> clickListener.onClick(election)}">
+        >
 
         <TextView
             android:id="@+id/textView"

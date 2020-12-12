@@ -17,7 +17,6 @@ import com.example.android.politicalpreparedness.election.adapter.ElectionListen
 
 class ElectionsFragment: Fragment() {
 
-    //TODO: Declare ViewModel
     private lateinit var viewModel: ElectionsViewModel
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -37,9 +36,9 @@ class ElectionsFragment: Fragment() {
                 ViewModelProvider(
                         this, viewModelFactory).get(ElectionsViewModel::class.java)
 
-        binding.viewmodel = viewModel
-
         binding.lifecycleOwner = this
+
+        binding.viewmodel = viewModel
 
 
         val savedElectionsAdapter = ElectionListAdapter(ElectionListener {
@@ -47,19 +46,26 @@ class ElectionsFragment: Fragment() {
                     .navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it.id, it.division))
         })
 
+        viewModel.savedElections.observe(viewLifecycleOwner, Observer {
+            savedElectionsAdapter.submitList(it)
+        })
+
         binding.recyclerViewSavedElections.adapter = savedElectionsAdapter
+
 
         val upcomingElectionsAdapter = ElectionListAdapter(ElectionListener {
             findNavController()
                     .navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it.id, it.division))
         })
 
+        binding.recyclerViewUpcomingElections.adapter = upcomingElectionsAdapter
 
         viewModel.upcomingElections.observe(viewLifecycleOwner, Observer {
-            upcomingElectionsAdapter.submitList(it)
+            it?.let {
+                upcomingElectionsAdapter.submitList(it)
+            }
         })
 
-        binding.recyclerViewUpcomingElections.adapter = upcomingElectionsAdapter
 
         return binding.root
     }
@@ -67,13 +73,3 @@ class ElectionsFragment: Fragment() {
     //TODO: Refresh adapters when fragment loads
 
 }
-
-//Done: Add ViewModel values and create ViewModel
-
-//Done: Add binding values
-
-//TODO: Link elections to voter info
-
-//Done: Initiate recycler adapters
-
-//Done: Populate recycler adapters
