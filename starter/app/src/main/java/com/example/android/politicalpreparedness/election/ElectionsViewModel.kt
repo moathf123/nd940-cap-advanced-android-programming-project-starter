@@ -8,10 +8,10 @@ import kotlinx.coroutines.launch
 
 //TODO: Construct ViewModel and provide election datasource
 class ElectionsViewModel(
-        val database: ElectionDao
+        dataSource: ElectionDao
 ) : ViewModel() {
 
-    private val repo = Repo(database)
+    private val repo = Repo(dataSource)
 
     val upcomingElections = repo.elections
     val savedElections = repo.savedElections

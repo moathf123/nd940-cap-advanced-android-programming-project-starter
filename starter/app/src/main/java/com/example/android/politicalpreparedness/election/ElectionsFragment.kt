@@ -41,9 +41,10 @@ class ElectionsFragment: Fragment() {
         binding.viewmodel = viewModel
 
 
+
         val savedElectionsAdapter = ElectionListAdapter(ElectionListener {
             findNavController()
-                    .navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it.id, it.division))
+                    .navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it))
         })
 
         viewModel.savedElections.observe(viewLifecycleOwner, Observer {
@@ -53,9 +54,10 @@ class ElectionsFragment: Fragment() {
         binding.recyclerViewSavedElections.adapter = savedElectionsAdapter
 
 
+
         val upcomingElectionsAdapter = ElectionListAdapter(ElectionListener {
             findNavController()
-                    .navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it.id, it.division))
+                    .navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(it))
         })
 
         binding.recyclerViewUpcomingElections.adapter = upcomingElectionsAdapter

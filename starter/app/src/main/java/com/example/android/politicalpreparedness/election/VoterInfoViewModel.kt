@@ -1,21 +1,47 @@
 package com.example.android.politicalpreparedness.election
 
-import androidx.lifecycle.ViewModel
+
+import androidx.lifecycle.*
+import com.example.android.politicalpreparedness.Repo
 import com.example.android.politicalpreparedness.database.ElectionDao
+import com.example.android.politicalpreparedness.network.models.Election
+import kotlinx.coroutines.launch
 
-class VoterInfoViewModel(private val dataSource: ElectionDao) : ViewModel() {
+class VoterInfoViewModel(dataSource: ElectionDao) : ViewModel() {
 
-    //TODO: Add live data to hold voter info
+    private val repo = Repo(dataSource)
+    val voterInfo = repo.voterInfo
+    val electionSavedStat = MutableLiveData<Boolean>()
+    var url = MutableLiveData<String>()
+    private val electionId = MutableLiveData<Int>()
+    val election = electionId.switchMap {
+        liveData {
+            emitSource(repo.getElectionById(it))
+        }
+    }
 
-    //TODO: Add var and methods to populate voter info
+    init {
+        electionSavedStat.value = false
+    }
 
-    //TODO: Add var and methods to support loading URLs
+    fun getVoterInfo(address: String, electionId: Int) {
+        viewModelScope.launch { repo.getVoterInfo(address, electionId) }
+    }
 
-    //TODO: Add var and methods to save and remove elections to local database
-    //TODO: cont'd -- Populate initial state of save button to reflect proper action based on election saved status
+    fun getUrl(url: String) {
+        this.url.value = url
+    }
 
-    /**
-     * Hint: The saved state can be accomplished in multiple ways. It is directly related to how elections are saved/removed from the database.
-     */
+    fun updateElection(election: Election) {
+        viewModelScope.launch {
+            election.Saved = !election.Saved
+            electionSavedStat.value = !electionSavedStat.value!!
+            repo.updateElection(election)
+        }
+    }
+
+    fun getElectionById(id: Int) {
+        electionId.value = id
+    }
 
 }

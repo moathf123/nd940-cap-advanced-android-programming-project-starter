@@ -4,7 +4,11 @@
     <string name="upcoming_elections">Upcoming Elections</string>
     <string name="find_my_representative">Find My Representative</string>
     <string name="saved_elections">Saved Elections</string>
-
+    <string name="follow">Follow</string>
+    <string name="unfollow">Unfollow</string>
+    <string name="election_information">Election Information</string>
+    <string name="voting_location">Voting Location</string>
+    <string name="ballot_information">Ballot Information</string>
     <!-- TODO: Add necessary string values -->
 
 </resources>

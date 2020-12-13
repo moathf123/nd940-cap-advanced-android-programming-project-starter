@@ -10,8 +10,8 @@ class VoterInfoViewModelFactory(
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ElectionsViewModel::class.java)) {
-            return ElectionsViewModel(dataSource) as T
+        if (modelClass.isAssignableFrom(VoterInfoViewModel::class.java)) {
+            return VoterInfoViewModel(dataSource) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
