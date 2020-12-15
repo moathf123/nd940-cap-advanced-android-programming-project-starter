@@ -36,17 +36,14 @@ private val retrofit = Retrofit.Builder()
  */
 
 interface CivicsApiService {
-    //TODO: Add elections API Call
     @GET("elections")
     fun getElections(): Deferred<ElectionResponse>
 
-    //TODO: Add voterinfo API Call
     @GET("voterinfo")
     fun getVoterinfo(
             @Query("address") address: String,
             @Query("electionId") electionId: Int): Deferred<VoterInfoResponse>
 
-    //TODO: Add representatives API Call
     @GET("representatives")
     fun getRepresentatives(
             @Query("address") address: String): Deferred<RepresentativeResponse>

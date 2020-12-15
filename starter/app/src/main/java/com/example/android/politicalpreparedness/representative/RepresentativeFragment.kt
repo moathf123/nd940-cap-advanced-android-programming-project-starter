@@ -32,12 +32,10 @@ import java.util.*
 class DetailFragment : Fragment() {
 
     companion object {
-        //TODO: Add Constant for Location request
         private const val REQUEST_FOREGROUND_PERMISSION_RESULT_CODE = 10
         private const val APPLICATION_ID = "com.example.android.politicalpreparedness"
     }
 
-    //TODO: Declare ViewModel
     private lateinit var binding: FragmentRepresentativeBinding
     private lateinit var viewModel: RepresentativeViewModel
     private lateinit var representativeAdapter: RepresentativeListAdapter
@@ -62,8 +60,8 @@ class DetailFragment : Fragment() {
         }
 
         binding.buttonSearch.setOnClickListener {
-            hideKeyboard()
             viewModel.getRepresentatives()
+            hideKeyboard()
         }
 
         representativeAdapter = RepresentativeListAdapter()

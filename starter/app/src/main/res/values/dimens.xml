@@ -8,6 +8,5 @@
     <dimen name="icon_size_socialMedia">26dp</dimen>
     <dimen name="spacing_large">24dp</dimen>
 
-    <!-- TODO: Add necessary dimension values -->
 
 </resources>

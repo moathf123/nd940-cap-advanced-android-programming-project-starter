@@ -6,7 +6,6 @@ import com.example.android.politicalpreparedness.Repo
 import com.example.android.politicalpreparedness.database.ElectionDao
 import kotlinx.coroutines.launch
 
-//TODO: Construct ViewModel and provide election datasource
 class ElectionsViewModel(
         dataSource: ElectionDao
 ) : ViewModel() {
