@@ -35,9 +35,4 @@ class RepresentativeViewModel : ViewModel() {
     Note: _representatives in the above code represents the established mutable live data housing representatives
 
      */
-
-    //TODO: Create function get address from geo location
-
-    //TODO: Create function to get address from individual fields
-
 }

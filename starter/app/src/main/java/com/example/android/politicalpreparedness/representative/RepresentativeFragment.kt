@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -24,12 +25,12 @@ import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
-import com.google.android.gms.location.FusedLocationProviderClient
+import com.github.ajalt.timberkt.Timber.d
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
-class DetailFragment : Fragment() {
+class DetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     companion object {
         private const val REQUEST_FOREGROUND_PERMISSION_RESULT_CODE = 10
@@ -39,7 +40,8 @@ class DetailFragment : Fragment() {
     private lateinit var binding: FragmentRepresentativeBinding
     private lateinit var viewModel: RepresentativeViewModel
     private lateinit var representativeAdapter: RepresentativeListAdapter
-
+    private lateinit var _address: Address
+    private lateinit var selectedState: String
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -51,8 +53,10 @@ class DetailFragment : Fragment() {
         binding.viewModel = viewModel
 
         val states = resources.getStringArray(R.array.states)
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, states)
-        binding.state.adapter = adapter
+        val DataAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, states)
+        binding.state.adapter = DataAdapter
+
+        binding.state.onItemSelectedListener = this
 
 
         binding.buttonLocation.setOnClickListener {
@@ -60,6 +64,9 @@ class DetailFragment : Fragment() {
         }
 
         binding.buttonSearch.setOnClickListener {
+            _address = Address(binding.addressLine1.text.toString(), binding.addressLine2.text.toString(), binding.city.text.toString(),
+                    selectedState, binding.zip.text.toString())
+            viewModel.address.value = _address
             viewModel.getRepresentatives()
             hideKeyboard()
         }
@@ -119,7 +126,7 @@ class DetailFragment : Fragment() {
 
     @SuppressLint("MissingPermission")
     private fun getLocation() {
-        val fusedLocationProviderClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
         fusedLocationProviderClient.lastLocation
                 .addOnSuccessListener {
                     if (it != null) {
@@ -131,11 +138,13 @@ class DetailFragment : Fragment() {
                         binding.state.setSelection(selectedStateIndex)
 
                         viewModel.getRepresentatives()
-                    }
+                    } else
+                        d { "null location" }
                 }
                 .addOnFailureListener {
                     it.printStackTrace()
                 }
+
     }
 
     private fun geoCodeLocation(location: Location): Address {
@@ -150,6 +159,14 @@ class DetailFragment : Fragment() {
     private fun hideKeyboard() {
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        selectedState = parent?.getItemAtPosition(position) as String
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        selectedState = "California"
     }
 
 }
