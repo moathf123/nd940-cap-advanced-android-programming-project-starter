@@ -9,6 +9,12 @@
     <string name="election_information">Election Information</string>
     <string name="voting_location">Voting Location</string>
     <string name="ballot_information">Ballot Information</string>
+    <string name="explanation_for_denied_location">permission is required for this feature to work</string>
+    <string name="setting">Setting</string>
+    <string name="my_representative">My Representative</string>
+    <string name="search_representative">search Representative</string>
+    <string name="search">Search</string>
+    <string name="set_my_location">Set My Location</string>
     <!-- TODO: Add necessary string values -->
 
 </resources>
